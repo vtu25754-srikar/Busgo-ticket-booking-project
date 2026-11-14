@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Dashboard – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+
+  <div class="dashboard-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <span>🚌 BUSGO</span>
+          <span class="sidebar-badge">Operator</span>
+        </a>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="sidebar-link active" data-tab="tabOverview">
+          <span class="icon">📊</span>
+          <span>Overview</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabBuses">
+          <span class="icon">🚍</span>
+          <span>My Bus Fleet</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabRoutes">
+          <span class="icon">🛣️</span>
+          <span>Routes & Schedules</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabBookings">
+          <span class="icon">🎟️</span>
+          <span>Passenger Bookings</span>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button onclick="logout()" class="btn btn-secondary btn-sm btn-block">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-content">
+
+      <!-- Header Bar -->
+      <div class="dashboard-header-bar">
+        <div>
+          <h1 class="dashboard-page-title">Operator Control Center</h1>
+          <p style="font-size:13px; color:#64748b;">Manage bus schedules, real-time seat inventory, and customer bookings</p>
+        </div>
+        <div class="dashboard-user-info">
+          <a href="index.html" class="btn btn-secondary btn-sm">Visit Website</a>
+          <button onclick="openModal('addBusModal')" class="btn btn-primary btn-sm">+ Add New Bus</button>
+        </div>
+      </div>
+
+      <!-- Tab 1: Overview -->
+      <div id="tabOverview" class="tab-pane active">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon red">🚍</div>
+            <div class="stat-info">
+              <span class="stat-value" id="opTotalBuses">0</span>
+              <span class="stat-label">Registered Buses</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon blue">🎟️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="opTotalBookings">0</span>
+              <span class="stat-label">Confirmed Bookings</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">💰</div>
+            <div class="stat-info">
+              <span class="stat-value" id="opTotalRevenue">₹0</span>
+              <span class="stat-label">Total Earnings</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">⏱️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="opUpcomingTrips">0</span>
+              <span class="stat-label">Upcoming Trips</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Passenger Bookings Table -->
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">Recent Fleet Bookings</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>PNR Number</th>
+                  <th>Customer Info</th>
+                  <th>Bus Model</th>
+                  <th>Route</th>
+                  <th>Journey Date</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="opRecentBookingsBody">
+                <!-- Injected by operator.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: My Buses -->
+      <div id="tabBuses" class="tab-pane">
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">All Buses in Fleet</h3>
+            <button onclick="openModal('addBusModal')" class="btn btn-primary btn-sm">+ Add Bus</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Bus Name</th>
+                  <th>Registration No.</th>
+                  <th>Bus Type</th>
+                  <th>Total Capacity</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="opBusesTableBody">
+                <!-- Injected by operator.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Routes & Schedules -->
+      <div id="tabRoutes" class="tab-pane">
+        <div style="display:flex; justify-content:flex-end; gap:12px; margin-bottom:20px;">
+          <button onclick="openModal('addRouteModal')" class="btn btn-secondary btn-sm">+ Add Route</button>
+          <button onclick="openModal('addScheduleModal')" class="btn btn-primary btn-sm">+ Schedule Bus Trip</button>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">Active Operational Routes</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Origin City</th>
+                  <th>Destination City</th>
+                  <th>Distance</th>
+                  <th>Approx. Duration</th>
+                </tr>
+              </thead>
+              <tbody id="opRoutesTableBody">
+                <!-- Injected by operator.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Passenger Bookings -->
+      <div id="tabBookings" class="tab-pane">
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">All Customer Reservations</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>PNR</th>
+                  <th>Passenger</th>
+                  <th>Bus</th>
+                  <th>Route</th>
+                  <th>Date</th>
+                  <th>Seat Numbers</th>
+                  <th>Total Paid</th>
+                </tr>
+              </thead>
+              <tbody id="opBookingsTableBody">
+                <!-- Injected by operator.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Modal: Add New Bus -->
+  <div class="modal-overlay" id="addBusModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:18px; font-weight:700;">Add New Bus to Fleet</h3>
+        <button onclick="closeModal('addBusModal')" style="background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="addBusForm">
+        <div class="form-group">
+          <label class="form-label">Bus Name / Model *</label>
+          <input type="text" id="busName" class="form-control" placeholder="e.g. Sharma Volvo Multi-Axle AC" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+          <div class="form-group">
+            <label class="form-label">Bus Registration Number *</label>
+            <input type="text" id="busNumber" class="form-control" placeholder="e.g. TS09UB9876" required style="text-transform:uppercase;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bus Category *</label>
+            <select id="busType" class="form-control" required>
+              <option value="AC_SLEEPER">AC Sleeper (2+1)</option>
+              <option value="AC_SEATER">AC Seater (2+2)</option>
+              <option value="NON_AC_SLEEPER">Non-AC Sleeper</option>
+              <option value="NON_AC_SEATER">Non-AC Seater</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+          <div class="form-group">
+            <label class="form-label">Total Seats Capacity *</label>
+            <input type="number" id="totalSeats" class="form-control" value="40" min="20" max="60" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amenities</label>
+            <input type="text" id="amenities" class="form-control" value="WiFi, Charging Point, Water Bottle, Blanket">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" onclick="closeModal('addBusModal')" class="btn btn-secondary btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save & Generate Layout</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Schedule -->
+  <div class="modal-overlay" id="addScheduleModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:18px; font-weight:700;">Schedule Bus Journey</h3>
+        <button onclick="closeModal('addScheduleModal')" style="background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="addScheduleForm">
+        <div class="form-group">
+          <label class="form-label">Select Bus *</label>
+          <select id="scheduleBusSelect" class="form-control" required>
+            <option value="">Loading buses...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select Route *</label>
+          <select id="scheduleRouteSelect" class="form-control" required>
+            <option value="">Loading routes...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Journey Date *</label>
+          <input type="date" id="scheduleDate" class="form-control" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+          <div class="form-group">
+            <label class="form-label">Departure Time *</label>
+            <input type="time" id="scheduleDepTime" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Arrival Time *</label>
+            <input type="time" id="scheduleArrTime" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ticket Base Price (₹) *</label>
+          <input type="number" id="schedulePrice" class="form-control" placeholder="e.g. 750" required min="100">
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" onclick="closeModal('addScheduleModal')" class="btn btn-secondary btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Publish Schedule</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Route -->
+  <div class="modal-overlay" id="addRouteModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:18px; font-weight:700;">Add New Intercity Route</h3>
+        <button onclick="closeModal('addRouteModal')" style="background:none; border:none; font-size:22px; cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="addRouteForm">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+          <div class="form-group">
+            <label class="form-label">Origin City *</label>
+            <input type="text" id="routeSource" class="form-control" placeholder="e.g. Hyderabad" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Destination City *</label>
+            <input type="text" id="routeDest" class="form-control" placeholder="e.g. Bangalore" required>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+          <div class="form-group">
+            <label class="form-label">Distance (km)</label>
+            <input type="number" id="routeDistance" class="form-control" value="500">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration (Minutes)</label>
+            <input type="number" id="routeDuration" class="form-control" value="480">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" onclick="closeModal('addRouteModal')" class="btn btn-secondary btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Add Route</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/operator.js"></script>
+</body>
+</html>

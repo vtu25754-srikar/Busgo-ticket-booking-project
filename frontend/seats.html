@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Seats & Stops – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Search</a>
+        <a href="ai-assistant.html" class="nav-link" style="color:var(--primary); font-weight:700;">🤖 AI Assistant</a>
+        <a href="mybookings.html" class="nav-link">My Bookings</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Injected by main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Progress Stepper -->
+  <div class="container">
+    <div class="stepper-wrapper">
+      <div class="stepper-item completed">
+        <div class="step-counter">✓</div>
+        <div class="step-name">Search Buses</div>
+      </div>
+      <div class="stepper-item active">
+        <div class="step-counter">2</div>
+        <div class="step-name">Select Seats</div>
+      </div>
+      <div class="stepper-item">
+        <div class="step-counter">3</div>
+        <div class="step-name">Passenger Details</div>
+      </div>
+      <div class="stepper-item">
+        <div class="step-counter">4</div>
+        <div class="step-name">Payment</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bus Info Header -->
+  <div class="container" style="margin-bottom:20px;">
+    <div style="background:#ffffff; border-radius:12px; padding:20px; border:1px solid #e2e8f0;" id="seatBusHeader">
+      <!-- Injected by seats.js -->
+    </div>
+  </div>
+
+  <!-- Interactive Seat Booking Layout -->
+  <div class="container">
+    <div class="seat-booking-container">
+
+      <!-- Left Column: Interactive Seat Grid -->
+      <div class="seat-layout-card">
+        <!-- Seat Legend -->
+        <div class="seat-legend">
+          <div class="legend-item">
+            <div class="legend-box available"></div>
+            <span>Available</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-box selected"></div>
+            <span>Selected</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-box booked"></div>
+            <span>Booked</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-box female"></div>
+            <span>Ladies Only</span>
+          </div>
+        </div>
+
+        <!-- Upper / Lower Deck Tabs -->
+        <div id="deckTabsContainer">
+          <!-- Injected by seats.js -->
+        </div>
+
+        <!-- Bus Interior Outline -->
+        <div class="bus-deck-wrapper">
+          <div class="steering-wheel" title="Front of the Bus / Driver">
+            ☸️ Front / Driver
+          </div>
+
+          <!-- Dynamic Seat Grid -->
+          <div id="seatGridContainer">
+            <!-- Injected by seats.js -->
+          </div>
+        </div>
+
+        <div style="font-size:12px; color:var(--text-muted); text-align:center;">
+          💡 Click on any available seat to select or deselect. You can pick up to 6 seats.
+        </div>
+      </div>
+
+      <!-- Right Column: Fare & Points Summary -->
+      <aside>
+        <div class="booking-summary-card">
+          <h3 class="summary-title">Booking Summary</h3>
+
+          <!-- Boarding & Dropping Points -->
+          <div style="margin-bottom:18px;">
+            <label class="form-label">Boarding Point *</label>
+            <select id="boardingStopSelect" class="form-control" style="font-size:13px; margin-bottom:12px;">
+              <option value="">Loading stops...</option>
+            </select>
+
+            <label class="form-label">Dropping Point *</label>
+            <select id="droppingStopSelect" class="form-control" style="font-size:13px;">
+              <option value="">Loading stops...</option>
+            </select>
+          </div>
+
+          <!-- Interactive Route & Stop Location Map -->
+          <div style="margin-top:14px; margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:12px; font-weight:700; color:#0f172a;">🗺️ Live Route & Stops Map</span>
+              <span id="routeDistanceBadge" style="font-size:11px; background:#eff6ff; color:#2563eb; padding:2px 8px; border-radius:12px; font-weight:600;">Calculating...</span>
+            </div>
+            <div id="routeMap" style="height:200px; width:100%; border-radius:8px; border:1px solid #cbd5e1; background:#f8fafc; z-index:1;"></div>
+            <div style="font-size:11px; color:#475569; margin-top:6px; line-height:1.4;">
+              <div>🟢 <strong>Pickup:</strong> <span id="mapBoardingLabel">Select boarding</span></div>
+              <div>🔴 <strong>Drop:</strong> <span id="mapDroppingLabel">Select dropping</span></div>
+            </div>
+          </div>
+
+          <!-- Selected Seats Display -->
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Selected Seat(s):</span>
+            <strong id="selectedSeatsDisplay" style="color:var(--primary); font-size:15px;">None selected</strong>
+          </div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Total Seats:</span>
+            <strong id="seatCountDisplay">0</strong>
+          </div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Base Fare:</span>
+            <span id="baseFareDisplay">₹0</span>
+          </div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Taxes & GST (5%):</span>
+            <span id="taxesDisplay">₹0</span>
+          </div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Convenience Fee:</span>
+            <span>₹50</span>
+          </div>
+
+          <!-- Total Amount -->
+          <div class="summary-row summary-total">
+            <span>Total Payable:</span>
+            <span id="totalAmountDisplay">₹0</span>
+          </div>
+
+          <button id="btnContinueToPassengers" onclick="proceedToPassengers()" class="btn btn-primary btn-block btn-lg" style="margin-top:20px;" disabled>
+            Proceed to Passenger Details
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align:center;">
+      <p style="font-size:13px;">&copy; 2026 BUSGO – Online Bus Ticket Booking & Reservation Platform.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/seats.js"></script>
+  <script src="js/ai-assistant-widget.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+================================================================================
+BUSGO TRAVEL KNOWLEDGE BASE: CANCELLATION AND REFUND POLICY
+================================================================================
+
+1. CANCELLATION TIME WINDOWS AND REFUND SLABS
+At BUSGO, cancellation refunds are computed automatically based on the time remaining before the scheduled departure of the bus:
+- More than 72 hours before departure: 90% refund of the base ticket fare (10% cancellation fee retained).
+- Between 24 hours and 72 hours before departure: 50% refund of the base ticket fare.
+- Less than 24 hours before departure: 0% refund (Non-refundable). Tickets cannot be cancelled for a refund within 24 hours of departure.
+- Post-departure (No-Show): 0% refund. If a passenger misses the bus at the designated boarding point, the ticket is treated as a no-show and no refund or rescheduling is granted.
+
+2. CANCELLATION BY OPERATOR OR UNFORESEEN BREAKDOWN
+- In the event of a bus trip cancellation by the bus operator, mechanical breakdown, or route closure without alternative transportation arranged, a 100% full refund will be processed to the passenger with zero cancellation fees.
+
+3. REFUND DISBURSEMENT TIMELINE
+- Refunds for payments made via UPI (GPay, PhonePe, Paytm) are processed within 24 to 48 hours.
+- Refunds for Debit Cards, Credit Cards, and Net Banking typically reflect in the passenger's bank account within 3 to 5 business days, depending on the issuing bank.
+
+4. PARTIAL CANCELLATIONS
+- For bookings containing multiple seats (e.g., booking for 2 or more passengers), passengers can selectively cancel one or more individual seats without having to cancel the entire ticket. The refund slab applies to the fare of the specific cancelled seat(s).
+
+5. HOW TO CANCEL A TICKET
+- Passengers can cancel their booking by navigating to "My Bookings" in their user dashboard, clicking "Cancel Ticket" on the confirmed booking card, or by asking the BUSGO AI Travel Assistant in chat.

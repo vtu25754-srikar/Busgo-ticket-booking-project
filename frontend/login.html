@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body style="background-color:#f1f5f9;">
+
+  <!-- Simple Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+      <div class="nav-actions">
+        <a href="register.html" class="btn btn-outline-primary btn-sm">Create Account</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Form Container -->
+  <div class="auth-page-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to manage your bus bookings and profile</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" id="email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label class="form-label">Password *</label>
+            <a href="javascript:void(0)" onclick="alert('Please contact admin@busgo.com or your operator representative to reset your credentials.')" style="font-size:12px; color:var(--primary);">Forgot Password?</a>
+          </div>
+          <input type="password" id="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+        </div>
+
+        <div style="margin-bottom:20px; font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="rememberMe" checked style="accent-color:var(--primary); cursor:pointer;">
+          <label for="rememberMe" style="cursor:pointer;">Remember me on this browser</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">
+          Login to BUSGO
+        </button>
+      </form>
+
+      <div style="text-align:center; margin-top:24px; font-size:14px; color:var(--text-muted);">
+        Don't have an account? 
+        <a href="register.html" style="color:var(--primary); font-weight:600;">Register here</a>
+      </div>
+
+      <div style="margin-top:24px; padding-top:20px; border-top:1px dashed #e2e8f0; font-size:12px; color:#64748b; text-align:center;">
+        <strong>Demo Accounts:</strong><br>
+        Admin: <code>admin@busgo.com</code> / Password: <i>(register or use admin)</i><br>
+        Operator: <code>sharma@busgo.com</code>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

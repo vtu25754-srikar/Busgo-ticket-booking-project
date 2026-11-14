@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.env
+**/.env
+.venv/
+env/
+venv/
+
+# ChromaDB & DB data
+backend/chroma_db_store/
+chroma_db_store/
+chromadb/
+.cache/
+
+# Playwright Snapshots & logs
+backend/automation_snapshots/
+*.log
+
+# Node
+node_modules/
+**/node_modules/
+package-lock.json
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

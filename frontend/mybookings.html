@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bookings – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+  <style>
+    .booking-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+    .booking-tab-btn {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    .booking-tab-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body style="background-color:#f8fafc;">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Search Buses</a>
+        <a href="ai-assistant.html" class="nav-link" style="color:var(--primary); font-weight:700;">🤖 AI Assistant</a>
+        <a href="mybookings.html" class="nav-link active">My Bookings</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Injected by main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- My Bookings Main Container -->
+  <div class="container" style="max-width: 900px; margin: 40px auto 60px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+      <div>
+        <h1 style="font-size:24px; font-weight:700;">My Travel Bookings</h1>
+        <p style="font-size:13px; color:var(--text-muted);">Manage your upcoming trips, download e-tickets, and view booking history</p>
+      </div>
+      <a href="index.html" class="btn btn-primary btn-sm">+ Book New Ticket</a>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="booking-tabs">
+      <button class="booking-tab-btn active" data-tab="upcoming">Upcoming Journeys</button>
+      <button class="booking-tab-btn" data-tab="completed">Completed Trips</button>
+      <button class="booking-tab-btn" data-tab="cancelled">Cancelled Tickets</button>
+    </div>
+
+    <!-- Bookings Cards Container -->
+    <div id="bookingsListContainer">
+      <!-- Injected by mybookings.js -->
+    </div>
+  </div>
+
+  <!-- Cancellation Modal -->
+  <div class="modal-overlay" id="cancelBookingModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:18px; font-weight:700; color:var(--danger);">Cancel Bus Reservation</h3>
+        <button onclick="closeCancelModal()" style="background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+        Are you sure you want to cancel booking PNR <strong id="cancelPnrDisplay" style="color:var(--text-dark);"></strong>?
+      </p>
+
+      <div style="background:#fff1f2; padding:14px; border-radius:8px; border:1px solid #fecdd3; margin-bottom:18px; font-size:13px;">
+        <strong>BUSGO Cancellation & Refund Policy:</strong><br>
+        • &gt; 72 hours before departure: 90% refund<br>
+        • 24 to 72 hours: 50% refund<br>
+        • &lt; 24 hours: Non-refundable
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Total Booking Amount:</label>
+        <div id="cancelAmountDisplay" style="font-size:18px; font-weight:700; color:var(--text-dark);">₹0</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Reason for Cancellation:</label>
+        <select id="cancelReasonSelect" class="form-control">
+          <option value="Change in travel plans">Change in travel plans</option>
+          <option value="Found alternative transportation">Found alternative transportation</option>
+          <option value="Personal emergency">Personal emergency</option>
+          <option value="Booking details entered incorrectly">Booking details entered incorrectly</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+        <button onclick="closeCancelModal()" class="btn btn-secondary btn-sm">Keep Booking</button>
+        <button id="btnConfirmCancel" onclick="confirmCancellation()" class="btn btn-primary btn-sm" style="background:var(--danger); border-color:var(--danger);">
+          Confirm Cancellation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align:center;">
+      <p style="font-size:13px;">&copy; 2026 BUSGO – Online Bus Ticket Booking & Reservation Platform.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/mybookings.js?v=4"></script>
+  <script src="js/ai-assistant-widget.js?v=4"></script>
+</body>
+</html>

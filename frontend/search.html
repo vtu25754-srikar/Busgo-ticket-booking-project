@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Buses – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Search</a>
+        <a href="ai-assistant.html" class="nav-link" style="color:var(--primary); font-weight:700;">🤖 AI Assistant</a>
+        <a href="mybookings.html" class="nav-link">My Bookings</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Injected dynamically by main.js based on auth state -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Route Search Summary Header -->
+  <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:16px 0;">
+    <div class="container" id="searchSummary">
+      <!-- Injected by search.js -->
+    </div>
+  </div>
+
+  <!-- Search Results Main Layout -->
+  <div class="container">
+    <div class="search-results-layout">
+
+      <!-- Left Filter Sidebar -->
+      <aside class="filter-card">
+        <div class="filter-header">
+          <h3 style="font-size:16px; font-weight:700;">Filters</h3>
+          <span style="font-size:12px; color:var(--primary); cursor:pointer; font-weight:600;" onclick="resetFilters()">Reset All</span>
+        </div>
+
+        <!-- Sort By -->
+        <div class="filter-group">
+          <div class="filter-title">Sort By</div>
+          <select id="sortBySelect" class="form-control" style="font-size:13px; padding:8px 12px;">
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="rating_desc">Highest Rated</option>
+            <option value="departure_asc">Earliest Departure</option>
+          </select>
+        </div>
+
+        <!-- Bus Types -->
+        <div class="filter-group">
+          <div class="filter-title">Bus Type</div>
+          <label class="filter-option">
+            <input type="checkbox" name="busType" value="AC">
+            <span>Air Conditioned (AC)</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" name="busType" value="NON_AC">
+            <span>Non-AC</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" name="busType" value="SLEEPER">
+            <span>Sleeper Berths</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" name="busType" value="SEATER">
+            <span>Seater</span>
+          </label>
+        </div>
+
+        <!-- Operators -->
+        <div class="filter-group">
+          <div class="filter-title">Bus Operators</div>
+          <div id="operatorFilterContainer">
+            <!-- Injected dynamically by search.js -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Column: Bus Listings -->
+      <main>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h3 id="busCountBadge" style="font-size:16px; font-weight:600; color:var(--text-muted);">
+            Searching buses...
+          </h3>
+          <div style="font-size:12px; color:#10b981; font-weight:500;">
+            ✓ Real-time seat inventory active
+          </div>
+        </div>
+
+        <div id="busResultsContainer">
+          <!-- Injected by search.js -->
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align:center;">
+      <p style="font-size:13px;">&copy; 2026 BUSGO – RedBus Inspired Intercity Bus Booking System.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/ai-assistant-widget.js?v=4"></script>
+</body>
+</html>

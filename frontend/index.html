@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUSGO – Online Bus Ticket Booking & Reservation</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link active">Bus Tickets</a>
+        <a href="search.html" class="nav-link">Search Buses</a>
+        <a href="ai-assistant.html" class="nav-link" style="color:var(--primary); font-weight:700;">🤖 AI Assistant</a>
+        <a href="#popularRoutesSection" class="nav-link">Popular Routes</a>
+        <a href="#offersSection" class="nav-link">Special Offers</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Injected dynamically by main.js based on auth state -->
+        <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner & Search Widget -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">India's No. 1 Online Bus Ticket Booking Platform</h1>
+      <p class="hero-subtitle">Compare 5,000+ daily bus schedules, choose your favourite seats, and book safely at the lowest fares.</p>
+    </div>
+  </section>
+
+  <!-- Floating Search Card -->
+  <div class="container">
+    <div class="search-card">
+      <form id="homeSearchForm" class="search-form">
+        <!-- Origin -->
+        <div class="search-field">
+          <label>From City</label>
+          <div class="input-with-icon">
+            <span class="field-icon">📍</span>
+            <input type="text" id="fromCity" list="cityList" placeholder="e.g. Hyderabad" required autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Swap Cities Button -->
+        <button type="button" class="btn-swap" onclick="swapCities()" title="Swap origin & destination">
+          ⇄
+        </button>
+
+        <!-- Destination -->
+        <div class="search-field">
+          <label>To City</label>
+          <div class="input-with-icon">
+            <span class="field-icon">🏁</span>
+            <input type="text" id="toCity" list="cityList" placeholder="e.g. Bangalore" required autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Journey Date -->
+        <div class="search-field">
+          <label>Journey Date</label>
+          <div class="input-with-icon">
+            <span class="field-icon">📅</span>
+            <input type="date" id="journeyDate" required>
+          </div>
+        </div>
+
+        <!-- Passengers -->
+        <div class="search-field">
+          <label>Passengers</label>
+          <div class="input-with-icon">
+            <span class="field-icon">👥</span>
+            <select id="passengers">
+              <option value="1">1 Passenger</option>
+              <option value="2">2 Passengers</option>
+              <option value="3">3 Passengers</option>
+              <option value="4">4 Passengers</option>
+              <option value="5">5 Passengers</option>
+              <option value="6">6 Passengers</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <div style="margin-top:18px;">
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%; height:48px;">
+            Search Buses
+          </button>
+        </div>
+      </form>
+
+      <!-- Autocomplete Datalist (Major South India Hubs & Metros) -->
+      <datalist id="cityList">
+        <option value="Hyderabad">
+        <option value="Bangalore">
+        <option value="Chennai">
+        <option value="Vijayawada">
+        <option value="Visakhapatnam">
+        <option value="Tirupati">
+        <option value="Coimbatore">
+        <option value="Madurai">
+        <option value="Kochi">
+        <option value="Mysore">
+        <option value="Kurnool">
+        <option value="Mumbai">
+        <option value="Pune">
+        <option value="Goa">
+        <option value="Delhi">
+        <option value="Jaipur">
+      </datalist>
+    </div>
+  </div>
+
+  <!-- Special Offers & Discounts -->
+  <section class="section" id="offersSection">
+    <div class="container">
+      <h2 class="section-title">Special Travel Offers & Coupons</h2>
+      <p class="section-subtitle">Use exclusive discount promo codes on checkout to save on your travel</p>
+
+      <div class="promos-grid">
+        <div class="promo-card">
+          <div>
+            <span style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase;">First Booking Deal</span>
+            <h3 style="font-size:18px; margin: 4px 0;">Flat 10% OFF on First Bus Trip</h3>
+            <p style="font-size:13px; color:var(--text-muted);">Save up to ₹200 on all AC and Sleeper buses across India.</p>
+            <div class="promo-code-box">CODE: FIRST10</div>
+          </div>
+          <div style="font-size:42px;">🎁</div>
+        </div>
+
+        <div class="promo-card">
+          <div>
+            <span style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase;">Instant Savings</span>
+            <h3 style="font-size:18px; margin: 4px 0;">Flat ₹100 OFF on Orders > ₹500</h3>
+            <p style="font-size:13px; color:var(--text-muted);">Valid on Sharma Travels, RedLine Express, and top luxury fleets.</p>
+            <div class="promo-code-box">CODE: SAVE100</div>
+          </div>
+          <div style="font-size:42px;">⚡</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Travel Routes -->
+  <section class="section" id="popularRoutesSection" style="background:#ffffff;">
+    <div class="container">
+      <h2 class="section-title">Popular Bus Routes</h2>
+      <p class="section-subtitle">Book tickets for top intercity routes across major state capitals and destinations</p>
+
+      <div class="routes-grid">
+        <div class="route-card" onclick="quickSearch('Hyderabad', 'Bangalore')">
+          <div class="route-header">
+            <div class="route-cities">Hyderabad &rarr; Bangalore</div>
+            <div class="route-price">₹750</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 9h 0m</span>
+            <span>🛣️ 570 km</span>
+            <span>🚌 18 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Chennai', 'Bangalore')">
+          <div class="route-header">
+            <div class="route-cities">Chennai &rarr; Bangalore</div>
+            <div class="route-price">₹550</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 6h 0m</span>
+            <span>🛣️ 350 km</span>
+            <span>🚌 20 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Hyderabad', 'Chennai')">
+          <div class="route-header">
+            <div class="route-cities">Hyderabad &rarr; Chennai</div>
+            <div class="route-price">₹650</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 10h 30m</span>
+            <span>🛣️ 630 km</span>
+            <span>🚌 16 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Hyderabad', 'Vijayawada')">
+          <div class="route-header">
+            <div class="route-cities">Hyderabad &rarr; Vijayawada</div>
+            <div class="route-price">₹450</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 5h 30m</span>
+            <span>🛣️ 275 km</span>
+            <span>🚌 22 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Bangalore', 'Hyderabad')">
+          <div class="route-header">
+            <div class="route-cities">Bangalore &rarr; Hyderabad</div>
+            <div class="route-price">₹750</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 9h 0m</span>
+            <span>🛣️ 570 km</span>
+            <span>🚌 18 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Chennai', 'Hyderabad')">
+          <div class="route-header">
+            <div class="route-cities">Chennai &rarr; Hyderabad</div>
+            <div class="route-price">₹650</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 10h 30m</span>
+            <span>🛣️ 630 km</span>
+            <span>🚌 16 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Delhi', 'Jaipur')">
+          <div class="route-header">
+            <div class="route-cities">Delhi &rarr; Jaipur</div>
+            <div class="route-price">₹550</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 5h 0m</span>
+            <span>🛣️ 280 km</span>
+            <span>🚌 18 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+
+        <div class="route-card" onclick="quickSearch('Bangalore', 'Hyderabad')">
+          <div class="route-header">
+            <div class="route-cities">Bangalore &rarr; Hyderabad</div>
+            <div class="route-price">₹850</div>
+          </div>
+          <div class="route-meta">
+            <span>⏱️ 9h 0m</span>
+            <span>🛣️ 570 km</span>
+            <span>🚌 12 Buses Daily</span>
+          </div>
+          <button class="btn btn-outline-primary btn-sm">Book This Route</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose BUSGO Features -->
+  <section class="section" id="whyUsSection">
+    <div class="container">
+      <h2 class="section-title">Why Book With BUSGO?</h2>
+      <p class="section-subtitle">Experience a hassle-free, comfortable, and reliable online bus booking journey</p>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon">💺</div>
+          <h3 class="feature-title">Live Interactive Seats</h3>
+          <p class="feature-desc">Interactive RedBus-style lower and upper deck seat maps with real-time seat locking.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon">💳</div>
+          <h3 class="feature-title">Secure Payments</h3>
+          <p class="feature-desc">Pay safely with Razorpay UPI, Debit/Credit Cards, Net Banking, and Instant Wallets.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">Instant E-Tickets</h3>
+          <p class="feature-desc">Download digital PDF tickets immediately with verified PNR numbers and journey details.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon">🔄</div>
+          <h3 class="feature-title">Easy Refunds</h3>
+          <p class="feature-desc">Flexible cancellation with up to 90% instant refunds directly back to your source account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">🚌 BUSGO</div>
+          <p style="font-size:13px; line-height:1.7; margin-bottom:14px;">
+            BUSGO is an online bus reservation platform inspired by RedBus, connecting millions of travellers with top bus operators for comfortable intercity travel.
+          </p>
+          <div style="font-size:13px; color:#cbd5e1;">Customer Helpline: <strong>1800-123-BUSGO</strong></div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Top Routes</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="quickSearch('Hyderabad', 'Bangalore')">Hyderabad &rarr; Bangalore</a></li>
+            <li><a href="javascript:void(0)" onclick="quickSearch('Chennai', 'Bangalore')">Chennai &rarr; Bangalore</a></li>
+            <li><a href="javascript:void(0)" onclick="quickSearch('Mumbai', 'Pune')">Mumbai &rarr; Pune</a></li>
+            <li><a href="javascript:void(0)" onclick="quickSearch('Delhi', 'Jaipur')">Delhi &rarr; Jaipur</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="login.html">Customer Login</a></li>
+            <li><a href="register.html">Create Account</a></li>
+            <li><a href="register.html">Operator Sign Up</a></li>
+            <li><a href="mybookings.html">My Bookings</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Portals</h4>
+          <ul class="footer-links">
+            <li><a href="operator-dashboard.html">Bus Operator Portal</a></li>
+            <li><a href="admin-dashboard.html">Admin Management</a></li>
+            <li><a href="profile.html">Account Settings</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 BUSGO Technologies India Pvt. Ltd. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/ai-assistant-widget.js?v=4"></script>
+  <script>
+    function quickSearch(from, to) {
+      const today = new Date().toISOString().split('T')[0];
+      window.location.href = `search.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${today}&passengers=1`;
+    }
+  </script>
+</body>
+</html>

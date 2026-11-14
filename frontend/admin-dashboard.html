@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+
+  <div class="dashboard-wrapper">
+
+    <!-- Admin Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <span>🚌 BUSGO</span>
+          <span class="sidebar-badge" style="background:#dc2626;">Admin</span>
+        </a>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="sidebar-link active" data-tab="tabAdminOverview">
+          <span class="icon">📈</span>
+          <span>Analytics Overview</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabAdminUsers">
+          <span class="icon">👥</span>
+          <span>User Management</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabAdminOperators">
+          <span class="icon">🏢</span>
+          <span>Operator Approvals</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabAdminBookings">
+          <span class="icon">🎟️</span>
+          <span>All Bookings</span>
+        </div>
+        <div class="sidebar-link" data-tab="tabAdminBuses">
+          <span class="icon">🚍</span>
+          <span>All Fleet Buses</span>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button onclick="logout()" class="btn btn-secondary btn-sm btn-block">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-content">
+
+      <!-- Header Bar -->
+      <div class="dashboard-header-bar">
+        <div>
+          <h1 class="dashboard-page-title">Platform Administration</h1>
+          <p style="font-size:13px; color:#64748b;">Global platform monitoring, user governance, and revenue analytics</p>
+        </div>
+        <div class="dashboard-user-info">
+          <a href="index.html" class="btn btn-secondary btn-sm">Customer View</a>
+        </div>
+      </div>
+
+      <!-- Tab 1: Overview -->
+      <div id="tabAdminOverview" class="tab-pane active">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">👥</div>
+            <div class="stat-info">
+              <span class="stat-value" id="adminTotalCustomers">0</span>
+              <span class="stat-label">Registered Users</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">🏢</div>
+            <div class="stat-info">
+              <span class="stat-value" id="adminTotalOperators">0</span>
+              <span class="stat-label">Bus Operators</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon red">🚍</div>
+            <div class="stat-info">
+              <span class="stat-value" id="adminTotalBuses">0</span>
+              <span class="stat-label">Active Buses</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">🎟️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="adminTotalBookings">0</span>
+              <span class="stat-label">Total Reservations</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">💰</div>
+            <div class="stat-info">
+              <span class="stat-value" id="adminTotalRevenue">₹0</span>
+              <span class="stat-label">Platform Volume</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon orange">↩️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="adminCancelledTickets">0</span>
+              <span class="stat-label">Cancelled Tickets</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Column Section -->
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-bottom:32px;">
+          <!-- Recent Bookings Table -->
+          <div class="data-card" style="margin-bottom:0;">
+            <div class="data-card-header">
+              <h3 class="data-card-title">Live Booking Stream</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>PNR</th>
+                    <th>Customer</th>
+                    <th>Route</th>
+                    <th>Bus</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="adminRecentBookingsBody">
+                  <!-- Injected by admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Popular Routes -->
+          <div class="data-card" style="margin-bottom:0;">
+            <div class="data-card-header">
+              <h3 class="data-card-title">Top Revenue Routes</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Route</th>
+                    <th>Bookings</th>
+                    <th>Revenue</th>
+                  </tr>
+                </thead>
+                <tbody id="adminPopularRoutesBody">
+                  <!-- Injected by admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: User Management -->
+      <div id="tabAdminUsers" class="tab-pane">
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">Customer Accounts</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Full Name</th>
+                  <th>Email Address</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                  <th>Account Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminUsersTableBody">
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Operator Approvals -->
+      <div id="tabAdminOperators" class="tab-pane">
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">Bus Operators & Partnerships</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Contact</th>
+                  <th>License No.</th>
+                  <th>Fleet Size</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminOperatorsTableBody">
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: All Platform Bookings -->
+      <div id="tabAdminBookings" class="tab-pane">
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">Master Bookings Ledger</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>PNR Number</th>
+                  <th>Customer</th>
+                  <th>Route</th>
+                  <th>Bus Name</th>
+                  <th>Journey Date</th>
+                  <th>Total Amount</th>
+                  <th>Booking Status</th>
+                </tr>
+              </thead>
+              <tbody id="adminBookingsTableBody">
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 5: All Buses -->
+      <div id="tabAdminBuses" class="tab-pane">
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3 class="data-card-title">Global Fleet Inventory</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Bus Name</th>
+                  <th>Registration</th>
+                  <th>Operator</th>
+                  <th>Bus Type</th>
+                  <th>Seats</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody id="adminBusesTableBody">
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

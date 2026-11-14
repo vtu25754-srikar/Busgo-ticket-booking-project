@@ -1,0 +1,24 @@
+================================================================================
+BUSGO TRAVEL KNOWLEDGE BASE: BOOKING & TICKETING FAQS
+================================================================================
+
+1. WHAT IS AN E-TICKET AND DO I NEED A PRINTOUT?
+An e-ticket (Electronic Ticket) is automatically issued upon payment confirmation. An SMS with your 10-digit PNR number along with an email containing the PDF ticket is sent to your registered contact details. A physical printout is NOT mandatory; showing the SMS or digital PDF ticket on your mobile device along with a valid ID proof is sufficient for boarding.
+
+2. WHAT ARE THE RULES FOR TRAVELLING WITH CHILDREN?
+- Children aged below 5 years can travel free of cost without a separate ticket, provided they share a seat/berth with an accompanying adult passenger (lap travel).
+- Children aged 5 years and above must purchase a full ticket with a dedicated seat/berth reservation.
+
+3. ACCEPTED PAYMENT MODES
+BUSGO supports multiple secure payment channels:
+- UPI (Google Pay, PhonePe, Paytm, BHIM)
+- Credit & Debit Cards (Visa, MasterCard, RuPay, American Express)
+- Net Banking (across 50+ major Indian banks)
+- Digital Wallets and simulated instant checkout for testing/demo.
+
+4. PROMO CODES AND DISCOUNTS
+- Coupon "FIRST10": Offers a 10% instant discount (up to ₹200) for new registered customers on their first bus reservation.
+- Coupon "SAVE100": Offers a flat ₹100 discount on orders exceeding ₹500 across premium operators like Orange Travels, VRL Travels, and Zingbus.
+
+5. CAN I RESCHEDULE OR CHANGE MY BUS TICKET?
+Direct date or route change is not permitted once a ticket is confirmed. To change your travel date, origin, or destination, you must cancel your existing booking (applicable refund slabs apply) and book a new ticket for your preferred schedule.

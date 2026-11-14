@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body style="background-color:#f1f5f9;">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Search</a>
+        <a href="mybookings.html" class="nav-link">My Bookings</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Injected by main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Confirmation Card -->
+  <div class="container" style="max-width: 720px; margin: 40px auto 60px;">
+    <div style="background:#ffffff; border-radius:16px; padding:36px; border:1px solid #e2e8f0; box-shadow:var(--shadow);">
+
+      <!-- Success Header -->
+      <div style="text-align:center; margin-bottom:24px;">
+        <div style="width:72px; height:72px; background:#dcfce7; color:#166534; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:36px; margin: 0 auto 16px;">
+          ✓
+        </div>
+        <h1 style="font-size:26px; font-weight:800; color:#166534; margin:0 0 6px;">Booking Confirmed!</h1>
+        <p style="font-size:14px; color:var(--text-muted); margin:0;">
+          Payment received successfully. Your digital ticket is confirmed.
+        </p>
+      </div>
+
+      <!-- PNR Box -->
+      <div style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:20px; margin-bottom:24px; text-align:center;">
+        <span style="font-size:11px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing:1px;">BOOKING REFERENCE (PNR)</span>
+        <div id="confirmedPnrDisplay" style="font-size:30px; font-weight:800; color:var(--primary); letter-spacing:1.5px; margin:4px 0;">
+          LOADING...
+        </div>
+        <div style="font-size:12px; color:#16a34a; font-weight:600;">
+          ✓ E-Ticket and SMS sent to your contact information
+        </div>
+      </div>
+
+      <!-- Journey Summary Details -->
+      <div id="confirmedJourneyDetails" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin-bottom:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:12px; margin-bottom:14px;">
+          <div>
+            <h3 id="confBusName" style="font-size:16px; font-weight:700; margin:0 0 2px;">Loading Bus...</h3>
+            <div id="confRoute" style="font-size:13px; color:#475569; font-weight:600;">Origin &rarr; Destination</div>
+          </div>
+          <div style="text-align:right;">
+            <span style="background:#dcfce7; color:#15803d; font-size:12px; font-weight:700; padding:4px 10px; border-radius:20px;">
+              ● CONFIRMED
+            </span>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; font-size:13px; margin-bottom:16px;">
+          <div>
+            <span style="color:#64748b; font-size:11px; font-weight:700; text-transform:uppercase;">Boarding Point:</span><br>
+            <strong id="confBoardingPoint" style="color:#1e293b;">Central Bus Stand</strong>
+            <div style="color:#b91c1c; font-size:11px; margin-top:2px;">(Report 15 mins before departure)</div>
+          </div>
+          <div>
+            <span style="color:#64748b; font-size:11px; font-weight:700; text-transform:uppercase;">Dropping Point:</span><br>
+            <strong id="confDroppingPoint" style="color:#1e293b;">Main Terminal</strong>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; font-size:13px; border-top:1px solid #f1f5f9; padding-top:12px;">
+          <div>
+            <span style="color:#64748b; font-size:11px; font-weight:700; text-transform:uppercase;">Passenger Name:</span><br>
+            <strong id="confPassengerName" style="color:#1e293b;">Traveler</strong>
+          </div>
+          <div>
+            <span style="color:#64748b; font-size:11px; font-weight:700; text-transform:uppercase;">Reserved Seat(s):</span><br>
+            <strong id="confSeatNumber" style="color:var(--primary); font-size:15px;">L1</strong>
+          </div>
+        </div>
+
+        <!-- Bus Number for Boarding -->
+        <div style="background:#fef2f2; border:1px dashed #fca5a5; border-radius:8px; padding:10px 14px; margin-top:14px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span style="color:#991b1b; font-weight:700; font-size:12px;">🚌 Bus / Vehicle Number:</span><br>
+            <small style="color:#64748b; font-size:11px;">Look for this number on the bus windshield/bay</small>
+          </div>
+          <strong id="confBusNumber" style="color:#b91c1c; font-size:16px; letter-spacing:0.8px;">KA-09-F-4521</strong>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+        <button id="btnDownloadTicket" onclick="printOrDownloadTicket()" class="btn btn-primary btn-lg btn-block" style="font-size:15px; font-weight:700; height:50px;">
+          📥 Print / Save E-Ticket (PDF)
+        </button>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+          <a href="mybookings.html" class="btn btn-secondary" style="text-align:center;">View in My Bookings</a>
+          <a href="index.html" class="btn btn-outline-primary" style="text-align:center;">Book Another Trip</a>
+        </div>
+      </div>
+
+      <div style="font-size:12px; color:var(--text-muted); line-height:1.6; border-top:1px solid #f1f5f9; padding-top:20px; text-align:center;">
+        Valid government photo ID proof is mandatory at boarding. 24/7 Helpline: <strong>1800-123-BUSGO</strong> | Email: support@busgo.com
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const bookingId = params.get('bookingId');
+    const pnr = params.get('pnr') || 'BGCONFIRMED';
+
+    document.getElementById('confirmedPnrDisplay').innerText = pnr;
+
+    // Load booking summary from session or backend
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Try local session first for instantaneous display
+      const sessionStr = sessionStorage.getItem('busgo_last_booking');
+      if (sessionStr) {
+        try {
+          const b = JSON.parse(sessionStr);
+          if (b.boarding_point) document.getElementById('confBoardingPoint').innerText = b.boarding_point;
+          if (b.dropping_point) document.getElementById('confDroppingPoint').innerText = b.dropping_point;
+          if (b.bus_number) document.getElementById('confBusNumber').innerText = b.bus_number;
+          if (b.seat_number) document.getElementById('confSeatNumber').innerText = b.seat_number;
+          if (b.bus_operator) document.getElementById('confBusName').innerText = `${b.bus_operator} (${b.bus_type || ''})`;
+          if (b.source && b.destination) document.getElementById('confRoute').innerHTML = `<strong>${b.source}</strong> &rarr; <strong>${b.destination}</strong>`;
+        } catch (e) {}
+      }
+
+      const checkoutStr = sessionStorage.getItem('busgo_checkout');
+      if (checkoutStr) {
+        try {
+          const c = JSON.parse(checkoutStr);
+          if (c.schedule) {
+            document.getElementById('confBusName').innerText = `${c.schedule.bus_name} (${c.schedule.operator_name || ''})`;
+            document.getElementById('confRoute').innerHTML = `<strong>${c.schedule.source_city}</strong> &rarr; <strong>${c.schedule.destination_city}</strong> | ${formatDate(c.schedule.journey_date)}`;
+          }
+          if (c.boardingPoint) document.getElementById('confBoardingPoint').innerText = c.boardingPoint;
+          if (c.droppingPoint) document.getElementById('confDroppingPoint').innerText = c.droppingPoint;
+          if (c.selectedSeats) document.getElementById('confSeatNumber').innerText = c.selectedSeats.map(s => s.seat_number).join(', ');
+        } catch (e) {}
+      }
+
+      const user = getUser();
+      if (user && user.username) {
+        document.getElementById('confPassengerName').innerText = user.username;
+      }
+
+      // Check if redirected with autoPrint=1
+      if (params.get('autoPrint') === '1' && bookingId) {
+        setTimeout(() => {
+          printOrDownloadTicket();
+        }, 700);
+      }
+    });
+
+    function printOrDownloadTicket() {
+      if (!bookingId) {
+        showToast('Ticket reference ID missing.', 'error');
+        return;
+      }
+      showToast('Opening print-ready electronic ticket...', 'info');
+      const ticketUrl = `${API_BASE}/bookings/${bookingId}/download-ticket`;
+      window.open(ticketUrl, '_blank', 'width=800,height=900,scrollbars=yes');
+    }
+  </script>
+</body>
+</html>

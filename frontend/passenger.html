@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passenger Details – BUSGO</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🚌</div>
+        <span>BUSGO</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Search</a>
+        <a href="mybookings.html" class="nav-link">My Bookings</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Injected by main.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- Progress Stepper -->
+  <div class="container">
+    <div class="stepper-wrapper">
+      <div class="stepper-item completed">
+        <div class="step-counter">✓</div>
+        <div class="step-name">Search Buses</div>
+      </div>
+      <div class="stepper-item completed">
+        <div class="step-counter">✓</div>
+        <div class="step-name">Select Seats</div>
+      </div>
+      <div class="stepper-item active">
+        <div class="step-counter">3</div>
+        <div class="step-name">Passenger Details</div>
+      </div>
+      <div class="stepper-item">
+        <div class="step-counter">4</div>
+        <div class="step-name">Payment</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey Summary Pill -->
+  <div class="container" id="passengerJourneyHeader">
+    <!-- Injected by booking.js -->
+  </div>
+
+  <!-- Main Passenger Details Layout -->
+  <div class="container" style="margin-bottom:60px;">
+    <div style="display:grid; grid-template-columns: 1.8fr 1.2fr; gap:24px;">
+
+      <!-- Left Column: Forms -->
+      <form id="passengerDetailsForm">
+        <!-- Passenger Cards -->
+        <div id="passengersContainer">
+          <!-- Injected dynamically for each seat by booking.js -->
+        </div>
+
+        <!-- Contact Information Card -->
+        <div style="background:#ffffff; border-radius:12px; padding:24px; border:1px solid #e2e8f0; margin-bottom:24px;">
+          <h3 style="font-size:16px; font-weight:700; margin-bottom:14px;">Contact Information</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+            Your booking confirmation, electronic PDF ticket, and journey SMS reminders will be sent to these details.
+          </p>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="contactEmail" class="form-control" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Mobile Number *</label>
+              <input type="tel" id="contactPhone" class="form-control" placeholder="10-digit mobile" required pattern="[0-9]{10}">
+            </div>
+          </div>
+        </div>
+
+        <!-- Coupon Code Card -->
+        <div style="background:#ffffff; border-radius:12px; padding:20px; border:1px solid #e2e8f0; margin-bottom:24px;">
+          <h3 style="font-size:15px; font-weight:700; margin-bottom:12px;">Have a Promo Code or Coupon?</h3>
+          <div style="display:flex; gap:10px;">
+            <input type="text" id="couponCodeInput" class="form-control" placeholder="e.g. FIRST10 or SAVE100" style="text-transform:uppercase;">
+            <button type="button" id="btnApplyCoupon" class="btn btn-outline-primary" style="white-space:nowrap;">Apply Coupon</button>
+          </div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:8px;">
+            Try <strong>FIRST10</strong> for 10% off or <strong>SAVE100</strong> for ₹100 instant discount.
+          </div>
+        </div>
+
+        <button type="submit" id="btnSubmitBooking" class="btn btn-primary btn-block btn-lg">
+          Proceed to Secure Payment
+        </button>
+      </form>
+
+      <!-- Right Column: Live Fare Summary -->
+      <aside>
+        <div class="booking-summary-card">
+          <h3 class="summary-title">Fare Summary</h3>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Base Ticket Fare:</span>
+            <span id="summaryBaseFare">₹0</span>
+          </div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">Convenience Fee:</span>
+            <span>₹50</span>
+          </div>
+
+          <div class="summary-row">
+            <span style="color:var(--text-muted);">GST & Taxes (5%):</span>
+            <span id="summaryTaxes">₹0</span>
+          </div>
+
+          <div class="summary-row" style="color:#10b981; font-weight:600;">
+            <span>Discount:</span>
+            <span id="summaryDiscount">- ₹0</span>
+          </div>
+
+          <div class="summary-row summary-total">
+            <span>Final Amount:</span>
+            <span id="summaryGrandTotal">₹0</span>
+          </div>
+
+          <div style="font-size:12px; color:var(--text-muted); margin-top:20px; line-height:1.6;">
+            🔒 Safe & Secure 256-bit encrypted transaction processed via Razorpay.
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align:center;">
+      <p style="font-size:13px;">&copy; 2026 BUSGO – Online Bus Ticket Booking & Reservation Platform.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

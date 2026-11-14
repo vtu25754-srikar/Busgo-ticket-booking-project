@@ -1,0 +1,26 @@
+{
+  "name": "busgo",
+  "version": "1.0.0",
+  "description": "BUSGO - Agentic AI-Based Intelligent Bus Ticket Booking & Travel Assistance System",
+  "main": "backend/app.py",
+  "scripts": {
+    "dev": "python backend/app.py",
+    "start": "python backend/app.py",
+    "server": "python backend/app.py",
+    "init-db": "python backend/init_db.py",
+    "seed": "python backend/seed_more_buses.py",
+    "test": "python backend/test_system.py"
+  },
+  "keywords": [
+    "busgo",
+    "redbus",
+    "agentic-ai",
+    "claude",
+    "rag",
+    "chromadb",
+    "playwright",
+    "flask"
+  ],
+  "author": "BUSGO Team",
+  "license": "ISC"
+}
